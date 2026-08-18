@@ -1,0 +1,1236 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <meta
+        name="description"
+        content="AI Handwritten Number Recognition using CNN, TensorFlow, OpenCV and Flask"
+    >
+
+    <meta
+        name="theme-color"
+        content="#0b0b0f"
+    >
+
+    <title>
+        Handwritten Number Recognition AI
+    </title>
+
+
+    <!-- =====================================================
+         STYLESHEET
+    ====================================================== -->
+
+    <link
+        rel="stylesheet"
+        href="{{ url_for('static', filename='style.css') }}"
+    >
+
+</head>
+
+
+<body>
+
+
+<div class="container">
+
+
+    <!-- =====================================================
+         HEADER
+    ====================================================== -->
+
+    <header class="header">
+
+
+        <div class="header-content">
+
+
+            <p class="badge">
+                AI • COMPUTER VISION • CNN
+            </p>
+
+
+            <h1>
+                Handwritten Number
+                <span>Recognition</span>
+            </h1>
+
+
+            <p class="subtitle">
+                Draw one or more handwritten digits and let
+                our CNN model recognize your number.
+            </p>
+
+
+        </div>
+
+
+        <!-- MODEL ACCURACY -->
+
+        <div class="accuracy-card">
+
+
+            <span>
+                MODEL ACCURACY
+            </span>
+
+
+            <strong>
+                99.14%
+            </strong>
+
+
+            <small>
+                MNIST CNN
+            </small>
+
+
+        </div>
+
+
+    </header>
+
+
+
+    <!-- =====================================================
+         MAIN DASHBOARD
+    ====================================================== -->
+
+    <main class="dashboard">
+
+
+        <!-- =================================================
+             DRAWING CARD
+        ================================================== -->
+
+        <section class="card drawing-card">
+
+
+            <div class="card-header">
+
+
+                <div>
+
+
+                    <h2>
+                        Draw Your Number
+                    </h2>
+
+
+                    <p>
+                        Write one or more digits
+                    </p>
+
+
+                </div>
+
+
+                <div class="status">
+
+
+                    <span class="status-dot"></span>
+
+
+                    AI Ready
+
+
+                </div>
+
+
+            </div>
+
+
+
+            <!-- CANVAS -->
+
+            <div class="canvas-wrapper">
+
+
+                <canvas
+                    id="drawingCanvas"
+                    width="280"
+                    height="280">
+                </canvas>
+
+
+            </div>
+
+
+
+            <!-- CANVAS HELP -->
+
+            <div class="canvas-help">
+
+
+                <span>
+                    Try:
+                </span>
+
+
+                <strong>
+                    7
+                </strong>
+
+
+                <strong>
+                    27
+                </strong>
+
+
+                <strong>
+                    583
+                </strong>
+
+
+                <strong>
+                    2026
+                </strong>
+
+
+            </div>
+
+
+
+            <!-- BUTTONS -->
+
+            <div class="controls">
+
+
+                <button
+                    id="clearBtn"
+                    class="btn secondary"
+                    type="button">
+
+                    Clear
+
+
+                </button>
+
+
+                <button
+                    id="predictBtn"
+                    class="btn primary"
+                    type="button">
+
+
+                    <span>
+                        ✦
+                    </span>
+
+
+                    Predict Number
+
+
+                </button>
+
+
+            </div>
+
+
+        </section>
+
+
+
+        <!-- =================================================
+             PREDICTION CARD
+        ================================================== -->
+
+        <section class="card prediction-card">
+
+
+            <!-- HEADER -->
+
+            <div class="card-header">
+
+
+                <div>
+
+
+                    <h2>
+                        AI Prediction
+                    </h2>
+
+
+                    <p>
+                        Neural network result
+                    </p>
+
+
+                </div>
+
+
+            </div>
+
+
+
+            <!-- RESULT -->
+
+            <div
+                id="predictionResult"
+                class="prediction-result">
+
+
+                <div class="placeholder-icon">
+                    ?
+                </div>
+
+
+                <h3>
+                    Draw one or more digits
+                </h3>
+
+
+                <p>
+                    Try 7, 27, 583, or 2026
+                </p>
+
+
+            </div>
+
+
+
+            <!-- =================================================
+                 OVERALL CONFIDENCE
+            ================================================== -->
+
+            <div
+                id="confidenceSection"
+                class="confidence-section hidden">
+
+
+                <div class="confidence-header">
+
+
+                    <span>
+                        Overall Confidence
+                    </span>
+
+
+                    <strong
+                        id="confidenceValue">
+
+                        0%
+
+                    </strong>
+
+
+                </div>
+
+
+                <div class="progress-bar">
+
+
+                    <div
+                        id="confidenceBar"
+                        class="progress">
+                    </div>
+
+
+                </div>
+
+
+            </div>
+
+
+
+            <!-- =================================================
+                 PER DIGIT PROBABILITY
+            ================================================== -->
+
+            <div class="probabilities">
+
+
+                <div class="probability-title">
+
+
+                    <div>
+
+
+                        <h3>
+                            Per-Digit Probability Distribution
+                        </h3>
+
+
+                        <p>
+                            CNN confidence for every recognized digit
+                        </p>
+
+
+                    </div>
+
+
+                </div>
+
+
+
+                <div id="probabilityList">
+
+
+                    <div class="probability-empty">
+
+
+                        <span>
+                            Draw a number to see
+                            per-digit probabilities.
+                        </span>
+
+
+                    </div>
+
+
+                </div>
+
+
+            </div>
+
+
+        </section>
+
+
+    </main>
+
+
+
+    <!-- =====================================================
+         STATISTICS
+    ====================================================== -->
+
+    <section class="statistics">
+
+
+        <!-- TOTAL -->
+
+        <div class="stat-card">
+
+
+            <div class="stat-icon">
+                #
+            </div>
+
+
+            <div>
+
+
+                <span>
+                    TOTAL PREDICTIONS
+                </span>
+
+
+                <strong
+                    id="totalPredictions">
+
+                    0
+
+                </strong>
+
+
+            </div>
+
+
+        </div>
+
+
+
+        <!-- AVERAGE -->
+
+        <div class="stat-card">
+
+
+            <div class="stat-icon">
+                %
+            </div>
+
+
+            <div>
+
+
+                <span>
+                    AVG. CONFIDENCE
+                </span>
+
+
+                <strong
+                    id="averageConfidence">
+
+                    0%
+
+                </strong>
+
+
+            </div>
+
+
+        </div>
+
+
+
+        <!-- MODEL -->
+
+        <div class="stat-card">
+
+
+            <div class="stat-icon">
+                AI
+            </div>
+
+
+            <div>
+
+
+                <span>
+                    MODEL
+                </span>
+
+
+                <strong>
+                    CNN
+                </strong>
+
+
+            </div>
+
+
+        </div>
+
+
+    </section>
+
+
+
+    <!-- =====================================================
+         MODEL INFORMATION
+    ====================================================== -->
+
+    <section class="card model-card">
+
+
+        <div class="section-heading">
+
+
+            <div>
+
+
+                <p class="section-label">
+                    ARTIFICIAL INTELLIGENCE
+                </p>
+
+
+                <h2>
+                    Model Information
+                </h2>
+
+
+                <p>
+                    Technical details of the handwritten
+                    number recognition system.
+                </p>
+
+
+            </div>
+
+
+        </div>
+
+
+
+        <div class="model-grid">
+
+
+            <!-- ARCHITECTURE -->
+
+            <div class="model-info-box">
+
+
+                <span>
+                    ARCHITECTURE
+                </span>
+
+
+                <strong>
+                    Convolutional Neural Network
+                </strong>
+
+
+            </div>
+
+
+
+            <!-- DATASET -->
+
+            <div class="model-info-box">
+
+
+                <span>
+                    DATASET
+                </span>
+
+
+                <strong>
+                    MNIST
+                </strong>
+
+
+            </div>
+
+
+
+            <!-- TRAINING -->
+
+            <div class="model-info-box">
+
+
+                <span>
+                    TRAINING IMAGES
+                </span>
+
+
+                <strong>
+                    60,000
+                </strong>
+
+
+            </div>
+
+
+
+            <!-- TESTING -->
+
+            <div class="model-info-box">
+
+
+                <span>
+                    TEST IMAGES
+                </span>
+
+
+                <strong>
+                    10,000
+                </strong>
+
+
+            </div>
+
+
+
+            <!-- INPUT -->
+
+            <div class="model-info-box">
+
+
+                <span>
+                    INPUT SIZE
+                </span>
+
+
+                <strong>
+                    28 × 28
+                </strong>
+
+
+            </div>
+
+
+
+            <!-- CLASSES -->
+
+            <div class="model-info-box">
+
+
+                <span>
+                    CLASSES
+                </span>
+
+
+                <strong>
+                    10 Digits
+                </strong>
+
+
+            </div>
+
+
+
+            <!-- ACCURACY -->
+
+            <div class="model-info-box">
+
+
+                <span>
+                    TEST ACCURACY
+                </span>
+
+
+                <strong>
+                    99.14%
+                </strong>
+
+
+            </div>
+
+
+
+            <!-- FRAMEWORK -->
+
+            <div class="model-info-box">
+
+
+                <span>
+                    FRAMEWORK
+                </span>
+
+
+                <strong>
+                    TensorFlow / Keras
+                </strong>
+
+
+            </div>
+
+
+        </div>
+
+
+    </section>
+
+
+
+    <!-- =====================================================
+         AI ANALYTICS
+    ====================================================== -->
+
+    <section class="card analytics-card">
+
+
+        <div class="history-header">
+
+
+            <div>
+
+
+                <p class="section-label">
+                    PERFORMANCE
+                </p>
+
+
+                <h2>
+                    AI Analytics
+                </h2>
+
+
+                <p>
+                    Prediction insights and model activity
+                </p>
+
+
+            </div>
+
+
+        </div>
+
+
+
+        <!-- ANALYTICS SUMMARY -->
+
+        <div class="analytics-summary">
+
+
+            <!-- MOST COMMON -->
+
+            <div class="analytics-box">
+
+
+                <span>
+                    MOST PREDICTED
+                </span>
+
+
+                <strong
+                    id="mostCommonDigit">
+
+                    -
+
+                </strong>
+
+
+                <small
+                    id="mostCommonCount">
+
+                    0 predictions
+
+                </small>
+
+
+            </div>
+
+
+
+            <!-- HIGHEST -->
+
+            <div class="analytics-box">
+
+
+                <span>
+                    HIGHEST CONFIDENCE
+                </span>
+
+
+                <strong
+                    id="highestConfidence">
+
+                    0%
+
+                </strong>
+
+
+                <small
+                    id="highestConfidenceDigit">
+
+                    No prediction yet
+
+                </small>
+
+
+            </div>
+
+
+
+            <!-- LATEST -->
+
+            <div class="analytics-box">
+
+
+                <span>
+                    LAST PREDICTION
+                </span>
+
+
+                <strong
+                    id="latestDigit">
+
+                    -
+
+                </strong>
+
+
+                <small
+                    id="latestPredictionTime">
+
+                    No prediction yet
+
+                </small>
+
+
+            </div>
+
+
+        </div>
+
+
+
+        <!-- =================================================
+             DIGIT CHART
+        ================================================== -->
+
+        <div class="analytics-chart">
+
+
+            <div class="chart-header">
+
+
+                <div>
+
+
+                    <h3>
+                        Digit Prediction Distribution
+                    </h3>
+
+
+                    <p>
+                        Number of times each digit was recognized
+                    </p>
+
+
+                </div>
+
+
+                <span>
+                    0 - 9
+                </span>
+
+
+            </div>
+
+
+            <div
+                id="digitChart"
+                class="digit-chart">
+
+            </div>
+
+
+        </div>
+
+
+    </section>
+
+
+
+    <!-- =====================================================
+         PREDICTION HISTORY
+    ====================================================== -->
+
+    <section class="card history-card">
+
+
+        <div class="history-header">
+
+
+            <div>
+
+
+                <p class="section-label">
+                    ACTIVITY
+                </p>
+
+
+                <h2>
+                    Prediction History
+                </h2>
+
+
+                <p>
+                    Your latest handwritten digit predictions
+                </p>
+
+
+            </div>
+
+
+
+            <button
+                id="clearHistoryBtn"
+                class="clear-history-btn"
+                type="button">
+
+                Clear History
+
+            </button>
+
+
+        </div>
+
+
+
+        <!-- HISTORY -->
+
+        <div id="historyContainer">
+
+
+            <div class="empty-history">
+
+
+                <div class="history-empty-icon">
+                    ⌁
+                </div>
+
+
+                <h3>
+                    No predictions yet
+                </h3>
+
+
+                <p>
+                    Your prediction history
+                    will appear here.
+                </p>
+
+
+            </div>
+
+
+        </div>
+
+
+    </section>
+
+
+
+    <!-- =====================================================
+         HOW IT WORKS
+    ====================================================== -->
+
+    <section class="card how-card">
+
+
+        <div class="section-heading">
+
+
+            <div>
+
+
+                <p class="section-label">
+                    PIPELINE
+                </p>
+
+
+                <h2>
+                    How It Works
+                </h2>
+
+
+                <p>
+                    From your handwriting to an AI prediction.
+                </p>
+
+
+            </div>
+
+
+        </div>
+
+
+
+        <div class="pipeline">
+
+
+            <div class="pipeline-step">
+
+
+                <div class="pipeline-number">
+                    01
+                </div>
+
+
+                <h3>
+                    Draw
+                </h3>
+
+
+                <p>
+                    Write one or more digits
+                    on the canvas.
+                </p>
+
+
+            </div>
+
+
+
+            <div class="pipeline-arrow">
+                →
+            </div>
+
+
+
+            <div class="pipeline-step">
+
+
+                <div class="pipeline-number">
+                    02
+                </div>
+
+
+                <h3>
+                    Process
+                </h3>
+
+
+                <p>
+                    OpenCV segments and
+                    normalizes each digit.
+                </p>
+
+
+            </div>
+
+
+
+            <div class="pipeline-arrow">
+                →
+            </div>
+
+
+
+            <div class="pipeline-step">
+
+
+                <div class="pipeline-number">
+                    03
+                </div>
+
+
+                <h3>
+                    Recognize
+                </h3>
+
+
+                <p>
+                    CNN analyzes every
+                    extracted digit.
+                </p>
+
+
+            </div>
+
+
+
+            <div class="pipeline-arrow">
+                →
+            </div>
+
+
+
+            <div class="pipeline-step">
+
+
+                <div class="pipeline-number">
+                    04
+                </div>
+
+
+                <h3>
+                    Result
+                </h3>
+
+
+                <p>
+                    The recognized number
+                    and confidence are displayed.
+                </p>
+
+
+            </div>
+
+
+        </div>
+
+
+    </section>
+
+
+
+    <!-- =====================================================
+         TECHNOLOGY STACK
+    ====================================================== -->
+
+    <section class="tech-stack">
+
+
+        <div class="tech-title">
+
+
+            <span>
+                BUILT WITH
+            </span>
+
+
+        </div>
+
+
+        <div class="tech-items">
+
+
+            <span>
+                Python
+            </span>
+
+
+            <span>
+                TensorFlow
+            </span>
+
+
+            <span>
+                Keras
+            </span>
+
+
+            <span>
+                OpenCV
+            </span>
+
+
+            <span>
+                Flask
+            </span>
+
+
+            <span>
+                SQLite
+            </span>
+
+
+            <span>
+                JavaScript
+            </span>
+
+
+        </div>
+
+
+    </section>
+
+
+
+    <!-- =====================================================
+         FOOTER
+    ====================================================== -->
+
+    <footer>
+
+
+        <div>
+
+
+            <strong>
+                Handwritten Number Recognition AI
+            </strong>
+
+
+            <span>
+                •
+            </span>
+
+
+            CNN + TensorFlow + OpenCV + Flask
+
+
+        </div>
+
+
+        <div>
+
+
+            MNIST Dataset
+
+
+        </div>
+
+
+    </footer>
+
+
+</div>
+
+
+
+<!-- =====================================================
+     JAVASCRIPT
+====================================================== -->
+
+<script
+    src="{{ url_for('static', filename='script.js') }}">
+</script>
+
+
+</body>
+
+</html>

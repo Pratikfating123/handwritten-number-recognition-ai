@@ -1,0 +1,1379 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    min-height: 100vh;
+
+    font-family:
+        Inter,
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        sans-serif;
+
+    background:
+        radial-gradient(
+            circle at top left,
+            #202b45 0%,
+            #0c1220 38%,
+            #060912 100%
+        );
+
+    color: #ffffff;
+
+    padding: 40px 20px;
+}
+
+
+.container {
+    max-width: 1200px;
+    margin: auto;
+}
+
+
+/* HEADER */
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+
+    margin-bottom: 35px;
+}
+
+
+.badge {
+    display: inline-block;
+
+    padding: 7px 12px;
+
+    border: 1px solid rgba(255, 255, 255, 0.12);
+
+    border-radius: 30px;
+
+    font-size: 11px;
+    font-weight: 700;
+
+    letter-spacing: 1.5px;
+
+    color: #8da8ff;
+
+    background: rgba(255, 255, 255, 0.04);
+}
+
+
+h1 {
+    margin-top: 15px;
+
+    font-size: clamp(38px, 5vw, 64px);
+
+    line-height: 1.05;
+
+    letter-spacing: -2px;
+}
+
+
+h1 span {
+    color: #7d9cff;
+}
+
+
+.subtitle {
+    margin-top: 15px;
+
+    max-width: 600px;
+
+    color: #8f9bb2;
+
+    font-size: 16px;
+
+    line-height: 1.6;
+}
+
+
+/* ACCURACY */
+
+.accuracy-card {
+    min-width: 180px;
+
+    padding: 22px;
+
+    border-radius: 18px;
+
+    background: rgba(255, 255, 255, 0.06);
+
+    border: 1px solid rgba(255, 255, 255, 0.1);
+
+    text-align: center;
+
+    backdrop-filter: blur(15px);
+}
+
+
+.accuracy-card span {
+    display: block;
+
+    font-size: 10px;
+
+    color: #7f8ba3;
+
+    letter-spacing: 1.5px;
+}
+
+
+.accuracy-card strong {
+    display: block;
+
+    margin: 7px 0;
+
+    font-size: 32px;
+
+    color: #8da8ff;
+}
+
+
+.accuracy-card small {
+    color: #7f8ba3;
+}
+
+
+/* DASHBOARD */
+
+.dashboard {
+    display: grid;
+
+    grid-template-columns:
+        minmax(300px, 1fr)
+        minmax(300px, 1fr);
+
+    gap: 24px;
+}
+
+
+.card {
+    padding: 28px;
+
+    border-radius: 24px;
+
+    background: rgba(15, 21, 35, 0.82);
+
+    border: 1px solid rgba(255, 255, 255, 0.08);
+
+    box-shadow:
+        0 25px 60px rgba(0, 0, 0, 0.25);
+
+    backdrop-filter: blur(20px);
+}
+
+
+.card-header {
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    margin-bottom: 25px;
+}
+
+
+.card-header h2 {
+    font-size: 20px;
+}
+
+
+.card-header p {
+    margin-top: 5px;
+
+    color: #77839a;
+
+    font-size: 13px;
+}
+
+
+.status {
+    display: flex;
+
+    align-items: center;
+
+    gap: 7px;
+
+    color: #86e0ae;
+
+    font-size: 12px;
+}
+
+
+.status-dot {
+    width: 8px;
+    height: 8px;
+
+    border-radius: 50%;
+
+    background: #86e0ae;
+
+    box-shadow:
+        0 0 12px rgba(134, 224, 174, 0.7);
+}
+
+
+/* CANVAS */
+
+.canvas-wrapper {
+    position: relative;
+
+    width: 280px;
+    height: 280px;
+
+    margin: 10px auto 25px;
+
+    border-radius: 18px;
+
+    overflow: hidden;
+
+    background: #ffffff;
+
+    box-shadow:
+        0 20px 40px rgba(0, 0, 0, 0.25);
+}
+
+
+canvas {
+    display: block;
+
+    width: 280px;
+    height: 280px;
+
+    cursor: crosshair;
+
+    touch-action: none;
+}
+
+
+/* CONTROLS */
+
+.controls {
+    display: flex;
+
+    gap: 12px;
+}
+
+
+.btn {
+    flex: 1;
+
+    border: none;
+
+    padding: 14px 18px;
+
+    border-radius: 12px;
+
+    font-size: 14px;
+
+    font-weight: 700;
+
+    cursor: pointer;
+
+    transition:
+        transform 0.2s,
+        opacity 0.2s;
+}
+
+
+.btn:hover {
+    transform: translateY(-2px);
+}
+
+
+.btn:active {
+    transform: translateY(0);
+}
+
+
+.btn.primary {
+    color: #ffffff;
+
+    background: #667eea;
+
+    box-shadow:
+        0 10px 25px rgba(102, 126, 234, 0.25);
+}
+
+
+.btn.secondary {
+    color: #c8d0df;
+
+    background: rgba(255, 255, 255, 0.07);
+}
+
+
+/* PREDICTION */
+
+.prediction-result {
+    text-align: center;
+
+    padding: 25px 0;
+}
+
+
+.placeholder-icon {
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    width: 110px;
+    height: 110px;
+
+    margin: auto;
+
+    border-radius: 50%;
+
+    font-size: 55px;
+
+    font-weight: 700;
+
+    color: #7d9cff;
+
+    background: rgba(125, 156, 255, 0.08);
+
+    border: 1px solid rgba(125, 156, 255, 0.15);
+}
+
+
+.predicted-digit {
+    font-size: 100px;
+
+    line-height: 1;
+
+    font-weight: 800;
+
+    color: #8da8ff;
+}
+
+
+.prediction-result h3 {
+    margin-top: 18px;
+
+    font-size: 19px;
+}
+
+
+.prediction-result p {
+    margin-top: 6px;
+
+    color: #77839a;
+
+    font-size: 13px;
+}
+
+
+/* CONFIDENCE */
+
+.confidence-section {
+    margin: 10px 0 25px;
+}
+
+
+.hidden {
+    display: none;
+}
+
+
+.confidence-header {
+    display: flex;
+
+    justify-content: space-between;
+
+    margin-bottom: 8px;
+
+    font-size: 13px;
+}
+
+
+.confidence-header span {
+    color: #8490a5;
+}
+
+
+.confidence-header strong {
+    color: #8da8ff;
+}
+
+
+.progress-bar {
+    height: 9px;
+
+    overflow: hidden;
+
+    border-radius: 20px;
+
+    background: rgba(255, 255, 255, 0.08);
+}
+
+
+.progress {
+    width: 0%;
+
+    height: 100%;
+
+    border-radius: inherit;
+
+    background: #667eea;
+
+    transition: width 0.5s ease;
+}
+
+
+/* PROBABILITIES */
+
+.probabilities h3 {
+    margin-bottom: 15px;
+
+    font-size: 14px;
+
+    color: #b7c0d1;
+}
+
+
+.probability-row {
+    display: grid;
+
+    grid-template-columns:
+        18px
+        1fr
+        50px;
+
+    align-items: center;
+
+    gap: 10px;
+
+    margin-bottom: 8px;
+
+    font-size: 12px;
+}
+
+
+.probability-track {
+    height: 7px;
+
+    overflow: hidden;
+
+    border-radius: 20px;
+
+    background: rgba(255, 255, 255, 0.07);
+}
+
+
+.probability-fill {
+    width: 0%;
+
+    height: 100%;
+
+    border-radius: inherit;
+
+    background: #667eea;
+
+    transition: width 0.5s ease;
+}
+
+
+.probability-value {
+    text-align: right;
+
+    color: #7f8ba3;
+}
+
+
+/* FOOTER */
+
+footer {
+    display: flex;
+
+    justify-content: space-between;
+
+    margin-top: 25px;
+
+    padding: 20px 5px;
+
+    color: #67738a;
+
+    font-size: 12px;
+}
+
+
+footer strong {
+    color: #9aa5ba;
+}
+
+
+/* RESPONSIVE */
+
+@media (max-width: 800px) {
+
+    body {
+        padding: 25px 15px;
+    }
+
+    .header {
+        flex-direction: column;
+
+        gap: 25px;
+    }
+
+    .accuracy-card {
+        width: 100%;
+    }
+
+    .dashboard {
+        grid-template-columns: 1fr;
+    }
+
+    footer {
+        flex-direction: column;
+
+        gap: 8px;
+    }
+}
+
+
+@media (max-width: 400px) {
+
+    .card {
+        padding: 20px;
+    }
+
+    .canvas-wrapper,
+    canvas {
+        width: 250px;
+        height: 250px;
+    }
+}
+.error-icon {
+    color: #ff9b9b;
+    border-color: rgba(255, 100, 100, 0.2);
+    background: rgba(255, 100, 100, 0.08);
+}
+
+.prediction-result p {
+    max-width: 420px;
+    margin-left: auto;
+    margin-right: auto;
+    line-height: 1.6;
+}
+
+/* ============================================================
+   STATISTICS
+============================================================ */
+
+.statistics {
+    display: grid;
+
+    grid-template-columns:
+        repeat(3, 1fr);
+
+    gap: 20px;
+
+    margin-top: 24px;
+}
+
+
+.stat-card {
+    display: flex;
+
+    align-items: center;
+
+    gap: 16px;
+
+    padding: 22px;
+
+    border-radius: 20px;
+
+    background:
+        rgba(15, 21, 35, 0.82);
+
+    border: 1px solid
+        rgba(255, 255, 255, 0.08);
+
+    box-shadow:
+        0 20px 40px
+        rgba(0, 0, 0, 0.15);
+}
+
+
+.stat-icon {
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    width: 48px;
+
+    height: 48px;
+
+    flex-shrink: 0;
+
+    border-radius: 14px;
+
+    color: #8da8ff;
+
+    background:
+        rgba(125, 156, 255, 0.1);
+
+    font-size: 16px;
+
+    font-weight: 800;
+}
+
+
+.stat-card span {
+    display: block;
+
+    color: #77839a;
+
+    font-size: 10px;
+
+    letter-spacing: 1px;
+
+    margin-bottom: 5px;
+}
+
+
+.stat-card strong {
+    display: block;
+
+    color: #ffffff;
+
+    font-size: 22px;
+}
+
+
+/* ============================================================
+   HISTORY
+============================================================ */
+
+.history-card {
+    margin-top: 24px;
+}
+
+
+.history-header {
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    margin-bottom: 20px;
+}
+
+
+.history-header h2 {
+    font-size: 20px;
+}
+
+
+.history-header p {
+    margin-top: 5px;
+
+    color: #77839a;
+
+    font-size: 13px;
+}
+
+
+.clear-history-btn {
+    border: 1px solid
+        rgba(255, 255, 255, 0.08);
+
+    background:
+        rgba(255, 255, 255, 0.05);
+
+    color: #aeb8c9;
+
+    padding: 10px 15px;
+
+    border-radius: 10px;
+
+    cursor: pointer;
+
+    font-size: 12px;
+
+    font-weight: 600;
+
+    transition:
+        background 0.2s,
+        transform 0.2s;
+}
+
+
+.clear-history-btn:hover {
+    background:
+        rgba(255, 255, 255, 0.09);
+
+    transform:
+        translateY(-1px);
+}
+
+
+/* ============================================================
+   HISTORY ROW
+============================================================ */
+
+.history-row {
+    display: grid;
+
+    grid-template-columns:
+        40px
+        60px
+        1fr
+        140px
+        90px;
+
+    align-items: center;
+
+    gap: 15px;
+
+    padding: 15px 10px;
+
+    border-bottom:
+        1px solid
+        rgba(255, 255, 255, 0.06);
+
+    transition:
+        background 0.2s;
+}
+
+
+.history-row:hover {
+    background:
+        rgba(255, 255, 255, 0.025);
+
+    border-radius: 10px;
+}
+
+
+.history-row:last-child {
+    border-bottom: none;
+}
+
+
+.history-number {
+    color: #5f6b81;
+
+    font-size: 12px;
+
+    text-align: center;
+}
+
+
+.history-digit {
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    width: 42px;
+
+    height: 42px;
+
+    border-radius: 12px;
+
+    color: #8da8ff;
+
+    background:
+        rgba(125, 156, 255, 0.08);
+
+    font-size: 22px;
+
+    font-weight: 800;
+}
+
+
+.history-info strong,
+.history-confidence strong {
+    display: block;
+
+    color: #dce2ed;
+
+    font-size: 13px;
+}
+
+
+.history-info span,
+.history-confidence span {
+    display: block;
+
+    margin-top: 4px;
+
+    color: #68758b;
+
+    font-size: 11px;
+}
+
+
+.history-confidence strong {
+    color: #8da8ff;
+}
+
+
+.history-time {
+    color: #68758b;
+
+    font-size: 12px;
+
+    text-align: right;
+}
+
+
+/* ============================================================
+   EMPTY HISTORY
+============================================================ */
+
+.empty-history {
+    padding: 45px 20px;
+
+    text-align: center;
+}
+
+
+.history-empty-icon {
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    width: 60px;
+
+    height: 60px;
+
+    margin:
+        0 auto 15px;
+
+    border-radius: 50%;
+
+    color: #7180a0;
+
+    background:
+        rgba(255, 255, 255, 0.04);
+
+    font-size: 28px;
+}
+
+
+.empty-history h3 {
+    color: #aeb8c9;
+
+    font-size: 15px;
+}
+
+
+.empty-history p {
+    margin-top: 6px;
+
+    color: #68758b;
+
+    font-size: 12px;
+}
+
+
+/* ============================================================
+   RESPONSIVE HISTORY
+============================================================ */
+
+@media (max-width: 800px) {
+
+    .statistics {
+        grid-template-columns: 1fr;
+    }
+
+
+    .history-row {
+        grid-template-columns:
+            35px
+            50px
+            1fr
+            100px;
+    }
+
+
+    .history-time {
+        display: none;
+    }
+
+}
+
+
+@media (max-width: 500px) {
+
+    .history-header {
+        align-items: flex-start;
+
+        gap: 15px;
+
+        flex-direction: column;
+    }
+
+
+    .history-row {
+        grid-template-columns:
+            35px
+            48px
+            1fr
+            85px;
+    }
+
+
+    .history-confidence {
+        text-align: right;
+    }
+
+}
+/* ============================================================
+   AI ANALYTICS
+============================================================ */
+
+.analytics-card {
+    margin-top: 24px;
+}
+
+
+.analytics-summary {
+    display: grid;
+
+    grid-template-columns:
+        repeat(3, 1fr);
+
+    gap: 18px;
+
+    margin-top: 22px;
+}
+
+
+.analytics-box {
+    padding: 22px;
+
+    border-radius: 16px;
+
+    background:
+        rgba(255, 255, 255, 0.025);
+
+    border:
+        1px solid
+        rgba(255, 255, 255, 0.06);
+}
+
+
+.analytics-box span {
+    display: block;
+
+    color: #68758b;
+
+    font-size: 10px;
+
+    letter-spacing: 1px;
+
+    margin-bottom: 10px;
+}
+
+
+.analytics-box strong {
+    display: block;
+
+    color: #8da8ff;
+
+    font-size: 30px;
+
+    line-height: 1;
+}
+
+
+.analytics-box small {
+    display: block;
+
+    margin-top: 8px;
+
+    color: #77839a;
+
+    font-size: 12px;
+}
+
+
+/* ============================================================
+   DIGIT CHART
+============================================================ */
+
+.analytics-chart {
+    margin-top: 28px;
+
+    padding-top: 25px;
+
+    border-top:
+        1px solid
+        rgba(255, 255, 255, 0.06);
+}
+
+
+.chart-header {
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    margin-bottom: 25px;
+}
+
+
+.chart-header h3 {
+    color: #cbd3e1;
+
+    font-size: 14px;
+}
+
+
+.chart-header span {
+    color: #68758b;
+
+    font-size: 11px;
+}
+
+
+.digit-chart {
+    display: grid;
+
+    grid-template-columns:
+        repeat(10, 1fr);
+
+    gap: 12px;
+
+    height: 220px;
+
+    padding:
+        0 10px;
+}
+
+
+.chart-column {
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+
+    justify-content: flex-end;
+
+    height: 100%;
+}
+
+
+.chart-count {
+    height: 20px;
+
+    color: #8da8ff;
+
+    font-size: 11px;
+
+    font-weight: 600;
+}
+
+
+.chart-bar-container {
+    display: flex;
+
+    align-items: flex-end;
+
+    justify-content: center;
+
+    width: 100%;
+
+    height: 170px;
+}
+
+
+.chart-bar {
+    width: 70%;
+
+    min-height: 4px;
+
+    border-radius:
+        7px 7px 3px 3px;
+
+    background:
+        linear-gradient(
+            to top,
+            #5169c7,
+            #8da8ff
+        );
+
+    box-shadow:
+        0 5px 20px
+        rgba(100, 130, 255, 0.15);
+
+    transition:
+        height 0.5s ease;
+}
+
+
+.chart-digit {
+    margin-top: 10px;
+
+    color: #77839a;
+
+    font-size: 12px;
+
+    font-weight: 600;
+}
+
+
+/* ============================================================
+   RESPONSIVE ANALYTICS
+============================================================ */
+
+@media (max-width: 800px) {
+
+    .analytics-summary {
+        grid-template-columns: 1fr;
+    }
+
+
+    .digit-chart {
+        gap: 5px;
+
+        padding: 0;
+    }
+
+
+    .chart-bar {
+        width: 80%;
+    }
+
+}
+
+
+@media (max-width: 500px) {
+
+    .analytics-box strong {
+        font-size: 25px;
+    }
+
+
+    .digit-chart {
+        height: 180px;
+    }
+
+
+    .chart-bar-container {
+        height: 135px;
+    }
+
+}
+
+/* ============================================================
+   MULTI-DIGIT PREDICTION
+============================================================ */
+
+.predicted-digit {
+    font-size: 64px;
+    font-weight: 800;
+    letter-spacing: 8px;
+    line-height: 1;
+    margin-bottom: 18px;
+    word-break: break-all;
+    text-align: center;
+}
+
+
+.prediction-result h3 {
+    margin-top: 5px;
+}
+
+
+.prediction-result p {
+    line-height: 1.6;
+}
+
+
+/* ============================================================
+   MULTI-DIGIT RESPONSIVE
+============================================================ */
+
+@media (max-width: 600px) {
+
+    .predicted-digit {
+        font-size: 48px;
+        letter-spacing: 5px;
+    }
+
+}
+/* ============================================================
+   PER-DIGIT AI PROBABILITY
+============================================================ */
+
+.digit-probability-card {
+    margin-top: 18px;
+    padding: 18px;
+    border: 1px solid rgba(128, 128, 128, 0.18);
+    border-radius: 14px;
+    background: rgba(128, 128, 128, 0.04);
+}
+
+
+.digit-probability-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 14px;
+}
+
+
+.digit-position {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+
+.digit-position span {
+    font-size: 13px;
+    opacity: 0.65;
+}
+
+
+.digit-position strong {
+    font-size: 28px;
+}
+
+
+.digit-confidence {
+    font-size: 14px;
+    font-weight: 700;
+}
+
+
+.digit-main-confidence {
+    margin-bottom: 18px;
+}
+
+
+.digit-main-track {
+    width: 100%;
+    height: 7px;
+    overflow: hidden;
+    border-radius: 10px;
+    background: rgba(128, 128, 128, 0.15);
+}
+
+
+.digit-main-fill {
+    height: 100%;
+    border-radius: 10px;
+    transition: width 0.5s ease;
+}
+
+
+.probability-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+}
+
+
+.probability-item {
+    display: grid;
+    grid-template-columns: 22px 1fr 58px;
+    align-items: center;
+    gap: 9px;
+    padding: 3px 0;
+}
+
+
+.probability-digit {
+    font-size: 12px;
+    font-weight: 700;
+    text-align: center;
+}
+
+
+.probability-track {
+    height: 6px;
+    overflow: hidden;
+    border-radius: 10px;
+    background: rgba(128, 128, 128, 0.12);
+}
+
+
+.probability-fill {
+    height: 100%;
+    border-radius: 10px;
+    transition: width 0.5s ease;
+}
+
+
+.probability-value {
+    font-size: 11px;
+    text-align: right;
+    opacity: 0.7;
+}
+
+
+.probability-active {
+    font-weight: 700;
+}
+
+
+.probability-active
+.probability-digit {
+    font-size: 14px;
+}
+
+
+.probability-active
+.probability-value {
+    opacity: 1;
+}
+
+
+.probability-empty {
+    padding: 30px 15px;
+    text-align: center;
+    opacity: 0.6;
+}
+
+
+.predicted-digit {
+    font-size: 64px;
+    font-weight: 800;
+    letter-spacing: 8px;
+    line-height: 1;
+    margin-bottom: 18px;
+    text-align: center;
+    word-break: break-all;
+}
+
+
+@media (max-width: 600px) {
+
+    .digit-probability-card {
+        padding: 14px;
+    }
+
+
+    .probability-item {
+        grid-template-columns: 20px 1fr 52px;
+        gap: 7px;
+    }
+
+
+    .predicted-digit {
+        font-size: 48px;
+        letter-spacing: 5px;
+    }
+
+}

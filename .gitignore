@@ -1,0 +1,38 @@
+# Virtual environment
+venv/
+.venv/
+env/
+
+# Python cache
+__pycache__/
+*.py[cod]
+*$py.class
+
+# IDE
+.vscode/
+.idea/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Python environment
+*.egg-info/
+
+# Logs
+*.log
+
+# Local database
+predictions.db
+prediction_history.db
+
+# Temporary files
+*.tmp
+*.temp
+
+# TensorFlow temporary files
+checkpoint/
+logs/
+
+# Jupyter
+.ipynb_checkpoints/
